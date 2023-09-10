@@ -1,0 +1,39 @@
+﻿<Window x:Class="BDownloaderRe.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BDownloaderRe"
+        mc:Ignorable="d"
+        Title="Settings" Height="450" Width="800" ResizeMode="CanMinimize"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="STSONG">
+    <Grid>
+        <TabControl>
+            <TabItem Header="基础设置">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="功能正在开发中" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="代理设置">
+                <Grid Background="#FFE5E5E5">
+                    <CheckBox x:Name="ProxyEnabledCheck" Content="启用代理" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="ProxyEnabledCheck_Checked"/>
+                    <CheckBox x:Name="LocalProxy" Content="使用本机代理" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <Label Content="请输入代理ip与端口" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="LocalIPProxy" HorizontalAlignment="Left" Height="23" Margin="10,70,0,0" Text="https://127.0.0.1:7890" TextWrapping="Wrap" VerticalAlignment="Top" Width="298" IsEnabled="False"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="FFmpeg设置">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
