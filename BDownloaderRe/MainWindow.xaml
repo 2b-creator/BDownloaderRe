@@ -30,13 +30,14 @@
         <Grid Margin="91,142,71,0" Height="30" VerticalAlignment="Top">
             <ProgressBar x:Name="ProgressBarQAQ" Height="10" VerticalAlignment="Center" Background="#FF9A67EA"/>
         </Grid>
-        <CheckBox Content="若为播放列表，则分P下载" HorizontalAlignment="Left" Margin="91,200,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <CheckBox x:Name="Dash" Content="若为播放列表，则分P下载" HorizontalAlignment="Left" Margin="91,200,0,0" VerticalAlignment="Top" Checked="Dash_Checked" Unchecked="Dash_Unchecked"/>
         <CheckBox x:Name="DefaultChooser" Content="将Cookie路径和保存路径设为默认" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="DefaultChooser_Checked" IsChecked="False" Unchecked="DefaultChooser_Unchecked"/>
+        <CheckBox x:Name="DebugMode" Content="调试模式" HorizontalAlignment="Left" Margin="91,223,0,0" VerticalAlignment="Top" Checked="DebugMode_Checked" Unchecked="DebugMode_Unchecked"/>
         <Button x:Name="Copyleft" Content="关于" HorizontalAlignment="Left" Margin="637,351,0,0" VerticalAlignment="Top" Click="Copyleft_Click"/>
         <Button x:Name="HighLevelSettings" Content="高级设置" HorizontalAlignment="Left" Margin="91,351,0,0" VerticalAlignment="Top" Click="HighLevelSettings_Click"/>
 
-        <Button x:Name="DownloadButton" Content="下载视频" HorizontalAlignment="Left" Margin="159,242,0,0" VerticalAlignment="Top" Click="DownloadButton_Click"/>
-        <Button x:Name="DownloadDanmaku" Content="下载弹幕(请使用GitHub Action开启实验性功能)" HorizontalAlignment="Left" Margin="390,242,0,0" VerticalAlignment="Top" Click="DownloadDanmaku_Click" IsEnabled="False"/>
+        <Button x:Name="DownloadButton" Content="下载视频" HorizontalAlignment="Left" Margin="159,254,0,0" VerticalAlignment="Top" Click="DownloadButton_Click"/>
+        <Button x:Name="DownloadDanmaku" Content="下载弹幕(请使用GitHub Action开启实验性功能)" HorizontalAlignment="Left" Margin="391,254,0,0" VerticalAlignment="Top" Click="DownloadDanmaku_Click" IsEnabled="False"/>
         <TextBlock x:Name="ProgressPercent" HorizontalAlignment="Left" Margin="663,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}进度：{0}%">
@@ -44,5 +45,10 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="269,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="从"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="357,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="到"/></TextBlock>
+        <TextBox x:Name="Start" HorizontalAlignment="Left" Margin="286,198,0,0" TextWrapping="Wrap" Text="起始列表" VerticalAlignment="Top" Width="66" IsEnabled="False" GotFocus="Start_GotFocus" LostFocus="Start_LostFocus"/>
+        <TextBox x:Name="End" HorizontalAlignment="Left" Margin="374,198,0,0" TextWrapping="Wrap" Text="结束列表" VerticalAlignment="Top" Width="74" IsEnabled="False" GotFocus="End_GotFocus" LostFocus="End_LostFocus"/>
+        
     </Grid>
 </Window>

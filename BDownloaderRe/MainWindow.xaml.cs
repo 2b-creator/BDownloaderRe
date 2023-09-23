@@ -21,6 +21,8 @@ using YoutubeDLSharp.Options;
 using System.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Window = System.Windows.Window;
+using System.Runtime.InteropServices;
+using YoutubeDLSharp.Metadata;
 
 namespace BDownloaderRe
 {
@@ -30,6 +32,17 @@ namespace BDownloaderRe
     public partial class MainWindow : Window
     {
         string fileDirectory = System.IO.Directory.GetCurrentDirectory();
+
+        /// <summary>
+        /// Allocates a new console for current process.
+        /// </summary>
+        [DllImport("kernel32.dll")]
+        public static extern Boolean AllocConsole();
+        /// <summary>
+        /// Frees the console.
+        /// </summary>
+        [DllImport("kernel32.dll")]
+        public static extern Boolean FreeConsole();
 
         public MainWindow()
         {
@@ -119,7 +132,13 @@ namespace BDownloaderRe
             }
         }
 
+        [Obsolete]
         private async void DownloadButton_Click(object sender, RoutedEventArgs e)
+        {
+            await DownloadVideoOperation();
+        }
+        [Obsolete]
+        private async Task DownloadVideoOperation()
         {
             YoutubeDL ytdl = new YoutubeDL();
             string ytdlp = fileDirectory + "\\yt-dlp.exe";
@@ -137,12 +156,24 @@ namespace BDownloaderRe
             //ProgressBar
             var progress = new Progress<DownloadProgress>(p => ProgressBarQAQ.Value = Math.Round(p.Progress * 100, 1));
             var cts = new CancellationTokenSource();
+            if (Dash.IsChecked == true)
+            {
+                options.PlaylistStart = Convert.ToInt32(Start.Text);
+                options.PlaylistStart = Convert.ToInt32(End.Text);
+            }
 
             //var res = await ytdl.RunWithOptions(new string[] { URL.Text }, options, CancellationToken.None);
             var res2 = await ytdl.RunVideoDownload(URL.Text, "bestvideo+bestaudio/best", mergeFormat: DownloadMergeFormat.Mp4, overrideOptions: options, ct: CancellationToken.None, progress: progress);
 
             string path = res2.Data;
-            await Console.Out.WriteLineAsync(path);
+            //await Console.Out.WriteLineAsync(path);
+            Console.WriteLine(path);
+            if (DebugMode.IsChecked == true)
+            {
+                var res = await ytdl.RunVideoDataFetch(URL.Text);
+                VideoData video = res.Data;
+                await Console.Out.WriteLineAsync();
+            }
         }
 
         private void DefaultChooser_Checked(object sender, RoutedEventArgs e)
@@ -201,6 +232,63 @@ namespace BDownloaderRe
         {
             Settings settings = new Settings();
             settings.ShowDialog();
+        }
+
+        private void Dash_Checked(object sender, RoutedEventArgs e)
+        {
+            Start.IsEnabled = true;
+            End.IsEnabled = true;
+        }
+
+        private void Dash_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Start.IsEnabled = false; 
+            End.IsEnabled = false;
+        }
+
+        private void Start_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (Start.Text == "起始列表")
+            {
+                Start.Text = "";
+            }
+        }
+
+        private void Start_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Start.Text))
+            {
+                Start.Text = "起始列表";
+            }
+        }
+
+        private void End_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (End.Text == "结束列表")
+            {
+                End.Text = "";
+            }
+        }
+
+        private void End_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(End.Text))
+            {
+                End.Text = "结束列表";
+            }
+        }
+
+        private void DebugMode_Checked(object sender, RoutedEventArgs e)
+        {
+            AllocConsole();
+            Console.WriteLine("已打开调试模式");
+            DebugMode.IsEnabled = false;
+            Console.WriteLine("请不要关闭该窗口，否则程序终止！");
+        }
+
+        private void DebugMode_Unchecked(object sender, RoutedEventArgs e)
+        {
+            FreeConsole();
         }
     }
 }
