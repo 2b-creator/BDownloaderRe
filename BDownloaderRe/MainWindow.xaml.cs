@@ -170,6 +170,7 @@ namespace BDownloaderRe
             Console.WriteLine(path);
             if (DebugMode.IsChecked == true)
             {
+                options.ConsoleTitle = true;
                 var res = await ytdl.RunVideoDataFetch(URL.Text);
                 VideoData video = res.Data;
                 await Console.Out.WriteLineAsync();

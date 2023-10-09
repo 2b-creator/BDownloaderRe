@@ -49,6 +49,6 @@
         <TextBlock HorizontalAlignment="Left" Margin="357,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="到"/></TextBlock>
         <TextBox x:Name="Start" HorizontalAlignment="Left" Margin="286,198,0,0" TextWrapping="Wrap" Text="起始列表" VerticalAlignment="Top" Width="66" IsEnabled="False" GotFocus="Start_GotFocus" LostFocus="Start_LostFocus"/>
         <TextBox x:Name="End" HorizontalAlignment="Left" Margin="374,198,0,0" TextWrapping="Wrap" Text="结束列表" VerticalAlignment="Top" Width="74" IsEnabled="False" GotFocus="End_GotFocus" LostFocus="End_LostFocus"/>
-        
+
     </Grid>
 </Window>
