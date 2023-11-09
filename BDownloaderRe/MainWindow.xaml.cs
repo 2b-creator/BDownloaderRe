@@ -44,6 +44,8 @@ namespace BDownloaderRe
         [DllImport("kernel32.dll")]
         public static extern Boolean FreeConsole();
 
+        BDownloadReAssembly assembly = new BDownloadReAssembly();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -156,25 +158,40 @@ namespace BDownloaderRe
             //ProgressBar
             var progress = new Progress<DownloadProgress>(p => ProgressBarQAQ.Value = Math.Round(p.Progress * 100, 1));
             var cts = new CancellationTokenSource();
+
+            //YouTubeDLProcess
+            var ytdlProc = new YoutubeDLProcess();
+
             if (Dash.IsChecked == true)
             {
                 options.PlaylistStart = Convert.ToInt32(Start.Text);
                 options.PlaylistStart = Convert.ToInt32(End.Text);
             }
 
-            //var res = await ytdl.RunWithOptions(new string[] { URL.Text }, options, CancellationToken.None);
-            var res2 = await ytdl.RunVideoDownload(URL.Text, "bestvideo+bestaudio/best", mergeFormat: DownloadMergeFormat.Mp4, overrideOptions: options, ct: CancellationToken.None, progress: progress);
-
-            string path = res2.Data;
-            //await Console.Out.WriteLineAsync(path);
-            Console.WriteLine(path);
-            if (DebugMode.IsChecked == true)
+            if (!assembly.IsUrl(URL.Text))
             {
-                options.ConsoleTitle = true;
-                var res = await ytdl.RunVideoDataFetch(URL.Text);
-                VideoData video = res.Data;
-                await Console.Out.WriteLineAsync();
+                URLWarning URLWarningWindow = new URLWarning();
+                URLWarningWindow.ShowDialog();
             }
+            else
+            {
+                //var res = await ytdl.RunWithOptions(new string[] { URL.Text }, options, CancellationToken.None);
+                var res2 = await ytdl.RunVideoDownload(URL.Text, "bestvideo+bestaudio/best", mergeFormat: DownloadMergeFormat.Mp4, overrideOptions: options, ct: CancellationToken.None, progress: progress);
+
+                string path = res2.Data;
+                //await Console.Out.WriteLineAsync(path);
+                Console.WriteLine(path);
+                if (DebugMode.IsChecked == true)
+                {
+                    ytdlProc.OutputReceived += async (o, e) => await Console.Out.WriteLineAsync(e.Data);
+                    ytdlProc.ErrorReceived += async (o, e) => await Console.Out.WriteLineAsync("ERROR: " + e.Data);
+                    options.ConsoleTitle = true;
+                    var res = await ytdl.RunVideoDataFetch(URL.Text);
+                    VideoData video = res.Data;
+                    await Console.Out.WriteLineAsync();
+                }
+            }
+
         }
 
         private void DefaultChooser_Checked(object sender, RoutedEventArgs e)
@@ -211,7 +228,7 @@ namespace BDownloaderRe
 
         private void DefaultChooser_Unchecked(object sender, RoutedEventArgs e)
         {
-            Path.IsEnabled = true; 
+            Path.IsEnabled = true;
             Cookies.IsEnabled = true;
             AddUpdateAppSettings("path", "请在此选择保存路径");
             AddUpdateAppSettings("cookies", "请选择Cookies文件（用于下载大会员视频）");
@@ -243,7 +260,7 @@ namespace BDownloaderRe
 
         private void Dash_Unchecked(object sender, RoutedEventArgs e)
         {
-            Start.IsEnabled = false; 
+            Start.IsEnabled = false;
             End.IsEnabled = false;
         }
 
