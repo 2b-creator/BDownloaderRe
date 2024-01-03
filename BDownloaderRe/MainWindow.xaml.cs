@@ -34,6 +34,7 @@ namespace BDownloaderRe
     {
 
         private string enableCookieSettingReci;
+        private string pathDefaulter;
 
         string fileDirectory = System.IO.Directory.GetCurrentDirectory();
 
@@ -69,7 +70,7 @@ namespace BDownloaderRe
                 DefaultChooser.IsChecked = false;
             }
 
-            if (ConfigurationManager.AppSettings["enableCookie"]=="1")
+            if (ConfigurationManager.AppSettings["enableCookie"] == "1")
             {
                 Cookies.IsEnabled = true;
                 DefaultChooser.IsEnabled = true;
@@ -174,7 +175,10 @@ namespace BDownloaderRe
             //    Cookies = Cookies.Text,
             //};
             OptionSet options = new OptionSet();
-            options.Cookies = Cookies.Text;
+            if (ConfigurationManager.AppSettings["enableCookie"] == "1")
+            {
+                options.Cookies = Cookies.Text;
+            }
 
             //ProgressBar
             var progress = new Progress<DownloadProgress>(p => ProgressBarQAQ.Value = Math.Round(p.Progress * 100, 1));
@@ -250,6 +254,7 @@ namespace BDownloaderRe
             Settings settings = new Settings();
             settings.ShowDialog();
             enableCookieSettingReci = settings.enableCookieSetting.ToString();
+            pathDefaulter = settings.enablePathDefaulter.ToString();
         }
 
         private void Dash_Checked(object sender, RoutedEventArgs e)
@@ -322,11 +327,24 @@ namespace BDownloaderRe
                 Cookies.IsEnabled = true;
                 DefaultChooser.IsEnabled = true;
             }
+            if (ConfigurationManager.AppSettings["defaultPath"] == "1")
+            {
+                Path.IsEnabled = false;
+                assembly.AddUpdateAppSettings("path", Path.Text);
+                assembly.AddUpdateAppSettings("cookies", Cookies.Text);
+            }
+            else
+            {
+                Path.IsEnabled = true;
+                assembly.AddUpdateAppSettings("path", "请在此选择保存路径");
+                assembly.AddUpdateAppSettings("cookies", "请选择Cookies文件");
+            }
+
         }
 
         private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

@@ -22,9 +22,15 @@ namespace BDownloaderRe
     {
         BDownloadReAssembly assembly = new BDownloadReAssembly();
         public string enableCookieSetting { get; set; }
-        private string enableCookieValue;
+        public string? enablePathDefaulter { get; set; }
+
+        private string? enableCookieValue;
+        private string? pathDefaulter;
+        public int i = 0;
         public Settings()
         {
+            pathDefaulter = ConfigurationManager.AppSettings["defaultPath"];
+            enablePathDefaulter = pathDefaulter;
             enableCookieValue = ConfigurationManager.AppSettings["enableCookie"];
             InitializeComponent();
             InitializeForSettings();
@@ -35,11 +41,22 @@ namespace BDownloaderRe
             if (enableCookieValue == "0")
             {
                 EnableCookie.IsChecked = false;
+                CookieDefault.IsEnabled = false;
             }
             else
             {
                 EnableCookie.IsChecked = true;
+                CookieDefault.IsEnabled = true;
             }
+            if(pathDefaulter == "0")
+            {
+                PathDefault.IsChecked = false;
+            }
+            else
+            {
+                PathDefault.IsChecked = true;
+            }
+            i++;
         }
 
         private void ProxyEnabledCheck_Checked(object sender, RoutedEventArgs e)
@@ -52,12 +69,30 @@ namespace BDownloaderRe
         {
             assembly.AddUpdateAppSettings("enableCookie", "1");
             enableCookieSetting = "1";
+            if (i == 1)
+            {
+                CookieDefault.IsEnabled = true;
+            }
         }
 
         private void EnableCookie_Unchecked(object sender, RoutedEventArgs e)
         {
             assembly.AddUpdateAppSettings("enableCookie", "0");
             enableCookieSetting = "0";
+            if (i == 1)
+            {
+                CookieDefault.IsEnabled = false;
+            }
+        }
+
+        private void PathDefault_Checked(object sender, RoutedEventArgs e)
+        {
+            assembly.AddUpdateAppSettings("defaultPath", "1");
+        }
+
+        private void PathDefault_Unchecked(object sender, RoutedEventArgs e)
+        {
+            assembly.AddUpdateAppSettings("defaultPath", "0");
         }
     }
 }

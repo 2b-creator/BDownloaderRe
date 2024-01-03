@@ -17,7 +17,7 @@
     <Grid>
         <StackPanel>
             <materialDesign:Card Padding="16" Margin="16">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}">欢迎使用BDownloaderRE！当前版本号为 v2.6</TextBlock>
+                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}">欢迎使用BDownloaderRE！当前版本号为 v2.6.1</TextBlock>
             </materialDesign:Card>
             <materialDesign:Card Padding="16" Margin="16">
                 <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}">我是作者kr，感谢您对该软件的支持</TextBlock>
