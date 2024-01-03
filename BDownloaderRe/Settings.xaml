@@ -18,7 +18,9 @@
         <TabControl>
             <TabItem Header="基础设置">
                 <Grid Background="#FFE5E5E5">
-                    <Label Content="功能正在开发中" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="EnableCookie" Content="使用Cookie" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True" Checked="EnableCookie_Checked" Unchecked="EnableCookie_Unchecked"/>
+                    <!--<Label Content="功能正在开发中" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>-->
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="代理设置">

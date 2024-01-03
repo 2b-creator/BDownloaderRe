@@ -13,7 +13,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="STSONG" ResizeMode="CanMinimize">
+        FontFamily="STSONG" ResizeMode="CanMinimize" Activated="Window_Activated" GotFocus="Window_GotFocus">
     <!--<Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>-->
@@ -31,13 +31,14 @@
             <ProgressBar x:Name="ProgressBarQAQ" Height="10" VerticalAlignment="Center" Background="#FF9A67EA"/>
         </Grid>
         <CheckBox x:Name="Dash" Content="若为播放列表，则分P下载" HorizontalAlignment="Left" Margin="91,200,0,0" VerticalAlignment="Top" Checked="Dash_Checked" Unchecked="Dash_Unchecked"/>
-        <CheckBox x:Name="DefaultChooser" Content="将Cookie路径和保存路径设为默认" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="DefaultChooser_Checked" IsChecked="False" Unchecked="DefaultChooser_Unchecked"/>
+        <CheckBox x:Name="DefaultChooser" Content="将Cookie路径和保存路径设为默认(即将弃用，下一版本将迁移到高级设置)" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="DefaultChooser_Checked" IsChecked="False" Unchecked="DefaultChooser_Unchecked"/>
         <CheckBox x:Name="DebugMode" Content="调试模式" HorizontalAlignment="Left" Margin="91,223,0,0" VerticalAlignment="Top" Checked="DebugMode_Checked" Unchecked="DebugMode_Unchecked"/>
-        <Button x:Name="Copyleft" Content="关于" HorizontalAlignment="Left" Margin="637,351,0,0" VerticalAlignment="Top" Click="Copyleft_Click"/>
+        <Button x:Name="Copyleft" Content="关于" HorizontalAlignment="Left" Margin="669,351,0,0" VerticalAlignment="Top" Click="Copyleft_Click"/>
         <Button x:Name="HighLevelSettings" Content="高级设置" HorizontalAlignment="Left" Margin="91,351,0,0" VerticalAlignment="Top" Click="HighLevelSettings_Click"/>
 
-        <Button x:Name="DownloadButton" Content="下载视频" HorizontalAlignment="Left" Margin="159,254,0,0" VerticalAlignment="Top" Click="DownloadButton_Click"/>
-        <Button x:Name="DownloadDanmaku" Content="下载弹幕(请使用GitHub Action开启实验性功能)" HorizontalAlignment="Left" Margin="391,254,0,0" VerticalAlignment="Top" Click="DownloadDanmaku_Click" IsEnabled="False"/>
+        <!--<Button x:Name="DownloadButton" Content="下载视频" HorizontalAlignment="Left" Margin="159,254,0,0" VerticalAlignment="Top" Click="DownloadButton_Click"/>-->
+        <Button x:Name="DownloadButton" Content="下载视频" HorizontalAlignment="Left" Margin="641,254,0,0" VerticalAlignment="Top" Click="DownloadButton_Click"/>
+        <Button x:Name="DownloadDanmaku" Content="下载弹幕(请使用GitHub Action开启实验性功能)" HorizontalAlignment="Left" Margin="391,254,0,0" VerticalAlignment="Top" Click="DownloadDanmaku_Click" IsEnabled="False" Visibility="Hidden"/>
         <TextBlock x:Name="ProgressPercent" HorizontalAlignment="Left" Margin="663,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top">
             <TextBlock.Text>
                 <MultiBinding StringFormat="{}进度：{0}%">

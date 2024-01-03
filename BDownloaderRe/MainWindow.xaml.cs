@@ -30,7 +30,11 @@ namespace BDownloaderRe
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+
     {
+
+        private string enableCookieSettingReci;
+
         string fileDirectory = System.IO.Directory.GetCurrentDirectory();
 
         /// <summary>
@@ -49,6 +53,11 @@ namespace BDownloaderRe
         public MainWindow()
         {
             InitializeComponent();
+            InitializeForMainWindow();
+        }
+
+        private void InitializeForMainWindow()
+        {
             Path.Text = ConfigurationManager.AppSettings["path"];
             Cookies.Text = ConfigurationManager.AppSettings["cookies"];
             if (ConfigurationManager.AppSettings["check"] == "1")
@@ -58,6 +67,18 @@ namespace BDownloaderRe
             else
             {
                 DefaultChooser.IsChecked = false;
+            }
+
+            if (ConfigurationManager.AppSettings["enableCookie"]=="1")
+            {
+                Cookies.IsEnabled = true;
+                DefaultChooser.IsEnabled = true;
+            }
+            else
+            {
+                Cookies.IsEnabled = false;
+                DefaultChooser.IsChecked = false;
+                DefaultChooser.IsEnabled = false;
             }
         }
 
@@ -198,41 +219,19 @@ namespace BDownloaderRe
         {
             Path.IsEnabled = false;
             Cookies.IsEnabled = false;
-            AddUpdateAppSettings("path", Path.Text);
-            AddUpdateAppSettings("cookies", Cookies.Text);
-            AddUpdateAppSettings("check", "1");
+            assembly.AddUpdateAppSettings("path", Path.Text);
+            assembly.AddUpdateAppSettings("cookies", Cookies.Text);
+            assembly.AddUpdateAppSettings("check", "1");
         }
 
-        private void AddUpdateAppSettings(string key, string value)
-        {
-            try
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
-                {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Console.WriteLine("Error writing app settings");
-            }
-        }
 
         private void DefaultChooser_Unchecked(object sender, RoutedEventArgs e)
         {
             Path.IsEnabled = true;
             Cookies.IsEnabled = true;
-            AddUpdateAppSettings("path", "请在此选择保存路径");
-            AddUpdateAppSettings("cookies", "请选择Cookies文件（用于下载大会员视频）");
-            AddUpdateAppSettings("check", "0");
+            assembly.AddUpdateAppSettings("path", "请在此选择保存路径");
+            assembly.AddUpdateAppSettings("cookies", "请选择Cookies文件（用于下载大会员视频）");
+            assembly.AddUpdateAppSettings("check", "0");
         }
 
         private void Copyleft_Click(object sender, RoutedEventArgs e)
@@ -250,6 +249,7 @@ namespace BDownloaderRe
         {
             Settings settings = new Settings();
             settings.ShowDialog();
+            enableCookieSettingReci = settings.enableCookieSetting.ToString();
         }
 
         private void Dash_Checked(object sender, RoutedEventArgs e)
@@ -307,6 +307,26 @@ namespace BDownloaderRe
         private void DebugMode_Unchecked(object sender, RoutedEventArgs e)
         {
             FreeConsole();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            if (ConfigurationManager.AppSettings["enableCookie"] == "0")
+            {
+                DefaultChooser.IsEnabled = false;
+                DefaultChooser.IsChecked = false;
+                Cookies.IsEnabled = false;
+            }
+            else
+            {
+                Cookies.IsEnabled = true;
+                DefaultChooser.IsEnabled = true;
+            }
+        }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
