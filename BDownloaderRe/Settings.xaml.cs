@@ -21,9 +21,8 @@ namespace BDownloaderRe
     public partial class Settings : Window
     {
         BDownloadReAssembly assembly = new BDownloadReAssembly();
-        public string enableCookieSetting { get; set; }
+        public string? enableCookieSetting { get; set; }
         public string? enablePathDefaulter { get; set; }
-
         private string? enableCookieValue;
         private string? pathDefaulter;
         public int i = 0;
