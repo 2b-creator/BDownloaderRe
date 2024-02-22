@@ -18,8 +18,9 @@
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>-->
     <Grid>
-        <Grid Margin="91,37,71,0" Height="30" VerticalAlignment="Top">
-            <TextBox x:Name="URL" Text="请在此输入网址" GotFocus="URL_GotFocus" LostFocus="URL_LostFocus"/>
+        <Grid Margin="91,37,71,0" Height="30" VerticalAlignment="Top" GotFocus="Grid_GotFocus">
+            <TextBox x:Name="URL" Text="请在此输入网址" GotFocus="URL_GotFocus" LostFocus="URL_LostFocus" Margin="0,0,93,0"/>
+            <TextBox x:Name="Episode" HorizontalAlignment="Left" Margin="550,0,0,0" TextWrapping="Wrap" Text="集数" Width="88" LostFocus="Episode_LostFocus"/>
         </Grid>
         <Grid Margin="91,72,71,0" Height="30" VerticalAlignment="Top">
             <TextBox x:Name="Path" Text="请在此选择保存路径" GotFocus="Path_GotFocus" LostFocus="Path_LostFocus" MouseLeftButtonDown="Path_MouseLeftButtonDown"/>
@@ -30,9 +31,9 @@
         <Grid Margin="91,142,71,0" Height="30" VerticalAlignment="Top">
             <ProgressBar x:Name="ProgressBarQAQ" Height="10" VerticalAlignment="Center" Background="#FF9A67EA"/>
         </Grid>
-        <CheckBox x:Name="Dash" Content="若为播放列表，则分P下载" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="Dash_Checked" Unchecked="Dash_Unchecked"/>
+        <CheckBox x:Name="Dash" Content="若为播放列表，则分P下载" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="Dash_Checked" Unchecked="Dash_Unchecked" IsEnabled="False" Visibility="Hidden"/>
         <CheckBox x:Name="DefaultChooser" Content="将Cookie路径和保存路径设为默认(即将弃用，下一版本将迁移到高级设置)" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="DefaultChooser_Checked" IsChecked="False" Unchecked="DefaultChooser_Unchecked" Visibility="Hidden"/>
-        <CheckBox x:Name="DebugMode" Content="调试模式" HorizontalAlignment="Left" Margin="91,200,0,0" VerticalAlignment="Top" Checked="DebugMode_Checked" Unchecked="DebugMode_Unchecked"/>
+        <CheckBox x:Name="DebugMode" Content="调试模式" HorizontalAlignment="Left" Margin="91,177,0,0" VerticalAlignment="Top" Checked="DebugMode_Checked" Unchecked="DebugMode_Unchecked"/>
         <Button x:Name="Copyleft" Content="关于" HorizontalAlignment="Left" Margin="669,351,0,0" VerticalAlignment="Top" Click="Copyleft_Click"/>
         <Button x:Name="HighLevelSettings" Content="高级设置" HorizontalAlignment="Left" Margin="91,351,0,0" VerticalAlignment="Top" Click="HighLevelSettings_Click"/>
 
@@ -46,10 +47,10 @@
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="269,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="从"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="357,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="zh-cn" Text="到"/></TextBlock>
-        <TextBox x:Name="Start" HorizontalAlignment="Left" Margin="286,175,0,0" TextWrapping="Wrap" Text="起始列表" VerticalAlignment="Top" Width="66" IsEnabled="False" GotFocus="Start_GotFocus" LostFocus="Start_LostFocus"/>
-        <TextBox x:Name="End" HorizontalAlignment="Left" Margin="374,175,0,0" TextWrapping="Wrap" Text="结束列表" VerticalAlignment="Top" Width="74" IsEnabled="False" GotFocus="End_GotFocus" LostFocus="End_LostFocus"/>
+        <TextBlock HorizontalAlignment="Left" Margin="269,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Hidden"><Run Language="zh-cn" Text="从"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="357,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Hidden"><Run Language="zh-cn" Text="到"/></TextBlock>
+        <TextBox x:Name="Start" HorizontalAlignment="Left" Margin="286,175,0,0" TextWrapping="Wrap" Text="起始列表" VerticalAlignment="Top" Width="66" IsEnabled="False" GotFocus="Start_GotFocus" LostFocus="Start_LostFocus" Visibility="Hidden"/>
+        <TextBox x:Name="End" HorizontalAlignment="Left" Margin="374,175,0,0" TextWrapping="Wrap" Text="结束列表" VerticalAlignment="Top" Width="74" IsEnabled="False" GotFocus="End_GotFocus" LostFocus="End_LostFocus" Visibility="Hidden"/>
 
     </Grid>
 </Window>

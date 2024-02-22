@@ -346,5 +346,21 @@ namespace BDownloaderRe
         {
 
         }
+
+        private void Grid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (Episode.Text == "集数")
+            {
+                Episode.Text = "";
+            }
+        }
+
+        private void Episode_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Episode.Text))
+            {
+                Episode.Text = "集数";
+            }
+        }
     }
 }
